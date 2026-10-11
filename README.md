@@ -1,65 +1,113 @@
-# বাজার দর | BazarDor
+# 🛒 বাজার দর | BazarDor
 
-A responsive Bengali-first market-price discovery website built with the Next.js App Router, TypeScript, and Tailwind CSS v4. The catalogue, category navigation, category filters, and product details use the supplied public BazarDor GET APIs instead of hardcoded product/category lists.
+### Your Smart Daily Market Price Tracker 🇧🇩
 
-## Technologies
+**বাজার দর (BazarDor)** is a modern web application that helps users explore daily market prices of essential products in Bangladesh. Users can browse products by category, compare current prices with previous prices, track price changes, and stay informed about market trends through a clean, responsive interface.
 
-- Next.js App Router (React 19)
-- TypeScript
-- Tailwind CSS v4 + custom responsive UI styles
-- Better Auth (email/password, Google, GitHub configuration)
-- React Hot Toast
-- Public BazarDor JSON API
+## ✨ Key Features
 
-## BazarDor API endpoints used
+- **📊 Daily Market Prices** — View the latest available prices of essential products using real-time API data.
+- **🔍 Product Categories** — Browse products by categories such as rice and other daily necessities.
+- **📈 Price Change Tracking** — Compare today's prices with previous prices and identify price increases or decreases.
+- **🔐 User Authentication** — Sign up and sign in using email and password, with social login support where configured.
+- **📱 Responsive User Interface** — Enjoy a modern, mobile-friendly experience built with reusable components and a responsive layout.
 
-The API functions in `src/lib/bazardor-api.ts` call these exact endpoints:
+## 🛠️ Technologies Used
 
-| Purpose | GET endpoint | Used in |
-| --- | --- | --- |
-| All categories | `https://api.api-store.workers.dev/api/bazardor/categories` | Header navigation, category chips |
-| Single category | `https://api.abcz.workers.dev/api/bazardor/categories/chal` (slug is dynamic) | Category detail page |
-| All products | `https://api.abcz.workers.dev/api/bazardor/products` | Home product catalogue and ticker |
-| Products by category | `https://api.api-store.workers.dev/api/bazardor/products?category=chal` (slug is dynamic) | `/category/[slug]` |
-| Single product | `https://api.api-store.workers.dev/api/bazardor/products/1` (ID is dynamic) | `/product/[id]` |
+| Technology | Purpose |
+|---|---|
+| [Next.js](https://nextjs.org/) | React framework and application routing |
+| [React](https://react.dev/) | Building interactive user interfaces |
+| [TypeScript](https://www.typescriptlang.org/) | Type-safe application development |
+| [Tailwind CSS](https://tailwindcss.com/) | Responsive styling and UI design |
+| [Better Auth](https://www.better-auth.com/) | Authentication and session management |
+| [MongoDB](https://www.mongodb.com/) | Database for authentication and application data |
+| [Lucide React](https://lucide.dev/) | Modern interface icons |
+| [React Hot Toast](https://react-hot-toast.com/) | User-friendly notifications |
+| REST APIs | Fetching product categories and market prices |
 
-If a primary request fails, the helper retries the corresponding endpoint against the alternative API host. API responses are normalized to support common response wrappers (`data`, `results`, `products`, `categories`, etc.). Server-rendered catalogue data is revalidated every five minutes.
+## 🚀 Getting Started
 
-## Features
+### Prerequisites
 
-1. Responsive Bengali market-price landing page.
-2. Category links generated from the API response.
-3. Product cards populated from the all-products endpoint.
-4. Product-price ticker generated from API data (not a hardcoded price list).
-5. Category detail pages with API category and filtered-product requests.
-6. Product detail pages fetching one product by ID.
-7. Price-change sections when the API includes change values.
-8. Bengali numeral formatting and inferred product emoji for records without images.
-9. Empty and not-found states for unavailable product/category data.
-10. Signup/signin screens and Better Auth foundation.
+- Node.js (LTS recommended)
+- npm
+- MongoDB connection string
 
-## Run locally
+### Installation
 
-Use Node.js 20.9 or later.
+1. Clone the repository:
 
-```bash
-npm install
-cp .env.example .env.local
-npm run dev
-```
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/bazardor-clone.git
+   ```
 
-Open [http://localhost:3000](http://localhost:3000).
+2. Navigate to the project directory:
 
-Configure the environment variables in `.env.local` to enable database-backed Better Auth and social sign-in. Public product APIs do not require these authentication secrets.
+   ```bash
+   cd bazardor-clone
+   ```
 
-## Routes
+3. Install dependencies:
 
-- `/` — home page and API-driven catalogue
-- `/signup` — registration
-- `/signin` — login
-- `/category/chal` — category detail (slug can vary)
-- `/product/1` — product detail (ID can vary)
+   ```bash
+   npm install
+   ```
 
-## Notes
+4. Create a `.env.local` file in the root directory and configure your environment variables:
 
-The API host may be temporarily unavailable or may change its JSON field names. The UI handles common response wrappers and shows an empty state rather than fabricating product records. Validate the live API response and run `npm run build` before deploying. Keep credentials in environment variables; never commit `.env.local`.
+   ```env
+   BETTER_AUTH_SECRET=your_secure_secret
+   BETTER_AUTH_URL=http://localhost:3000
+   MONGODB_URI=your_mongodb_connection_string
+
+   # Optional: Social authentication
+   # GOOGLE_CLIENT_ID=your_google_client_id
+   # GOOGLE_CLIENT_SECRET=your_google_client_secret
+   # GITHUB_CLIENT_ID=your_github_client_id
+   # GITHUB_CLIENT_SECRET=your_github_client_secret
+   ```
+
+5. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 🌐 Market Data APIs
+
+BazarDor uses external APIs to retrieve product and category information.
+
+- **Categories:** `https://api.api-store.workers.dev/api/bazardor/categories`
+- **Products:** `https://api.abcz.workers.dev/api/bazardor/products`
+- **Product Details:** `https://api.api-store.workers.dev/api/bazardor/products/1`
+- **Category Products:** `https://api.api-store.workers.dev/api/bazardor/products?category=chal`
+
+API availability and returned data may vary.
+
+## 📂 Project Highlights
+
+- Reusable React components and organized application structure.
+- Type-safe product data handling with TypeScript.
+- Server-rendered pages and data revalidation with Next.js.
+- Authentication integration with Better Auth.
+- Market price comparisons using current and historical price fields.
+
+## 🎯 Project Objective
+
+The goal of BazarDor is to make daily market prices easier to access and understand, helping people in Bangladesh make more informed purchasing decisions.
+
+## 👨‍💻 Developer
+
+**Farhan Khan**  
+Full Stack Web Developer
+
+- GitHub: [YOUR_GITHUB_USERNAME](https://github.com/YOUR_GITHUB_USERNAME)
+
+---
+
+<p align="center">
+  Built with ❤️ using Next.js and TypeScript.
+</p>
