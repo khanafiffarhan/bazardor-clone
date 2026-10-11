@@ -53,7 +53,7 @@ export default function ProfilePage() {
         return;
       }
 
-      toast.success("প্রোফাইল সফলভাবে আপডেট হয়েছে!");
+      toast.success("প্রোফাইল আপডেট হয়েছে!");
       router.refresh();
     } catch {
       toast.error("কিছু একটা সমস্যা হয়েছে");
