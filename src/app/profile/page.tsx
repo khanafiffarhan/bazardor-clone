@@ -101,7 +101,7 @@ export default function ProfilePage() {
                   আমার প্রোফাইল
                 </h1>
                 <p className="mt-1 text-sm text-green-100">
-                  আপনার ব্যক্তিগত তথ্য আপডেট করুন
+                  আপনার তথ্য আপডেট করুন
                 </p>
               </div>
             </div>
