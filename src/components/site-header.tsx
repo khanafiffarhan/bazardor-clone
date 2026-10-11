@@ -13,27 +13,12 @@ import {
   getProducts,
   money,
   productEmoji,
+  type Product,
 } from "@/lib/bazardor-api";
 
 import { authClient } from "@/lib/auth-client";
 
-type Category = {
-  slug: string;
-  name: string;
-};
-
-type Product = {
-  id?: number | string;
-  slug?: string;
-  name?: string;
-  nameBn?: string;
-  unit?: string;
-  price?: number;
-  averagePrice?: number;
-  minPrice?: number;
-  today?: number;
-  category?: string;
-};
+type Category = Awaited<ReturnType<typeof getCategories>>[number];
 
 export function SiteHeader() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -46,15 +31,19 @@ export function SiteHeader() {
   useEffect(() => {
     let active = true;
 
-    Promise.all([
-      getCategories().catch(() => []),
-      getProducts().catch(() => []),
-    ]).then(([categoryData, productData]) => {
+    async function loadData() {
+      const [categoryData, productData] = await Promise.all([
+        getCategories().catch(() => []),
+        getProducts().catch(() => []),
+      ]);
+
       if (!active) return;
 
-      setCategories(categoryData as Category[]);
-      setProducts(productData as Product[]);
-    });
+      setCategories(categoryData);
+      setProducts(productData);
+    }
+
+    void loadData();
 
     return () => {
       active = false;
@@ -63,13 +52,8 @@ export function SiteHeader() {
 
   const ticker = products.slice(0, 12).map((product) => {
     const unit = (product.unit ?? "একক").replace("প্রতি ", "");
-    const price =
-      product.today ??
-      product.price ??
-      product.averagePrice ??
-      product.minPrice;
-
-    const name = product.nameBn ?? product.name ?? "পণ্য";
+    const price = product.today;
+    const name = product.nameBn;
 
     return `${productEmoji(product)} ${name} ${
       price != null ? money(price) : "দাম নেই"
@@ -107,7 +91,6 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 w-full border-b border-emerald-100 bg-white/95 shadow-sm backdrop-blur-md">
       {/* Topbar */}
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-4 sm:px-6 sm:py-3 lg:px-8">
-        {/* Logo and brand */}
         <Link
           href="/"
           className="flex min-w-0 shrink items-center gap-2 sm:gap-3"
@@ -200,7 +183,7 @@ export function SiteHeader() {
         aria-label="পণ্যের বিভাগ"
         className="border-t border-gray-100"
       >
-        <div className="scrollbar-hide mx-auto flex w-full max-w-7xl items-center gap-1.5 overflow-x-auto px-3 py-2 sm:gap-2 sm:px-6 lg:px-8">
+        <div className="mx-auto flex w-full max-w-7xl items-center gap-1.5 overflow-x-auto px-3 py-2 sm:gap-2 sm:px-6 lg:px-8">
           <Link
             href="/#সব-পণ্য"
             className="shrink-0 rounded-full bg-emerald-700 px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-emerald-800 sm:px-4 sm:text-sm"
@@ -239,5 +222,3 @@ export function SiteHeader() {
     </header>
   );
 }
-
-

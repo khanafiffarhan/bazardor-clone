@@ -5,7 +5,7 @@ const BASE_PRIMARY = "https://api.api-store.workers.dev/api/bazardor";
 const BASE_ALTERNATE = "https://api.abcz.workers.dev/api/bazardor";
 
 export type PriceChange = {
-  dir: "up" | "down" | "same" | string;
+  dir: "up" | "down" | "same";
   pct: number;
 };
 
@@ -53,10 +53,7 @@ export type Product = {
   maxPrice?: number;
   averagePrice?: number;
   pct: PriceChange;
-  change?: {
-  dir: "up" | "down";
-  pct: number;
-};
+  change?: PriceChange;
 
   markets: MarketPrice[];
 
@@ -238,7 +235,7 @@ const pct =
         )
       : 0;
 
-const rawChange = {
+const rawChange: PriceChange = {
   dir: direction,
   pct,
 };
@@ -301,6 +298,7 @@ const rawChange = {
     maxPrice,
     averagePrice: today,
 
+    pct: rawChange,
     change: rawChange,
     markets,
   };
