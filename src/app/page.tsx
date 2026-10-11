@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { ProductGrid } from "@/components/product-card";
+import { ProductFilter } from "@/components/product-filter";
 import {
   getCategories,
   getProducts,
@@ -134,18 +135,23 @@ export default async function HomePage() {
         )}
 
         <section id="সব-পণ্য" className="product-section all-products">
+          
           <div className="section-heading">
+            
             <div>
               <span className="eyebrow">
                 <span className="eyebrow-dot" /> বাজারের সম্পূর্ণ তালিকা
               </span>
+              
               <h2>সব পণ্য</h2>
+              
               <p>API থেকে পাওয়া পণ্যের বর্তমান দাম দেখুন।</p>
             </div>
 
             <span className="result-count">
               {products.length.toLocaleString("bn-BD")}টি পণ্য
             </span>
+            
           </div>
 
           <div className="category-chips">
@@ -164,7 +170,7 @@ export default async function HomePage() {
             ))}
           </div>
 
-          <ProductGrid products={products} />
+          <ProductFilter products={products} />
         </section>
 
         {/* Today's prices are explicitly read from product.today */}

@@ -52,7 +52,11 @@ export type Product = {
   minPrice?: number;
   maxPrice?: number;
   averagePrice?: number;
-  change: PriceChange;
+  pct: PriceChange;
+  change?: {
+  dir: "up" | "down";
+  pct: number;
+};
 
   markets: MarketPrice[];
 
