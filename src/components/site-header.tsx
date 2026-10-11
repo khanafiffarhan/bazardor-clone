@@ -130,7 +130,12 @@ export function SiteHeader() {
                 title={session.user.name || "আমার প্রোফাইল"}
                 className="flex max-w-36 items-center gap-1.5 rounded-full border border-emerald-100 bg-emerald-50 p-1 transition hover:border-emerald-300 hover:bg-emerald-100 sm:max-w-56 sm:gap-2 sm:py-1.5 sm:pl-1.5 sm:pr-3"
               >
-                <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-emerald-700 text-white sm:size-9">
+                <Link
+  href="/profile"
+  aria-label="Go to profile"
+  className="flex items-center justify-center rounded-full p-2 transition hover:bg-gray-100"
+>
+  <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-emerald-700 text-white sm:size-9">
                   {session.user.image ? (
                     <img
                       src={session.user.image}
@@ -141,6 +146,8 @@ export function SiteHeader() {
                     <UserRound size={19} />
                   )}
                 </span>
+</Link>
+               
 
                 <span className="hidden truncate text-sm font-semibold text-emerald-950 sm:block">
                   {session.user.name || "আমার প্রোফাইল"}
